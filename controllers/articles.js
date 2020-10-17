@@ -31,7 +31,7 @@ module.exports.addArticle = (req, res, next) => {
 
 // 3. Удаление статьи из избранного
 module.exports.deleteArticle = (req, res, next) => {
-  Article.findById(req.params.articleId)
+  Article.findById(req.params.articleId).select('+owner')
     .orFail(new NotFoundError('Нет статьи с таким id'))
     .then((article) => {
       if (article.owner.toString() !== req.user._id) {

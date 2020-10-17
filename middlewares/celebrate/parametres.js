@@ -1,42 +1,11 @@
 const { Joi } = require('celebrate');
 
-// const keyword = Joi
-//   .string()
-//   .required()
-//   .messages({
-//     'string.base': 'keyword должно быть строкой',
-//     'any.required': 'keyword - обязательное поле',
-//   });
-
-// const title = Joi
-//   .string()
-//   .required()
-//   .messages({
-//     'string.base': 'title должно быть строкой',
-//     'any.required': 'title - обязательное поле',
-//   });
-
-// const text = Joi
-//   .string()
-//   .required()
-//   .messages({
-//     'string.base': 'text должно быть строкой',
-//     'any.required': 'text - обязательное поле',
-//   });
-
-// const date = Joi
-//   .string()
-//   .required()
-//   .messages({
-//     'string.base': 'date должно быть строкой',
-//     'any.required': 'date - обязательное поле',
-//   });
-
 const text = Joi
   .string()
   .required()
   .messages({
     'string.base': '{#label} должно быть строкой',
+    'string.empty': '{#label} - обязательное поле',
     'any.required': '{#label} - обязательное поле',
   });
 
@@ -47,18 +16,9 @@ const link = Joi
   .messages({
     'string.base': '{#label} должно быть строкой',
     'string.uri': '{#label} должно быть url',
+    'string.empty': '{#label} - обязательное поле',
     'any.required': '{#label} - обязательное поле',
   });
-
-// const image = Joi
-//   .string()
-//   .required()
-//   .uri()
-//   .messages({
-//     'string.base': 'image должно быть строкой',
-//     'string.uri': 'image должно быть url',
-//     'any.required': 'image - обязательное поле',
-//   });
 
 const _id = Joi
   .string()
@@ -101,6 +61,10 @@ const name = Joi
     'any.required': 'keyword - обязательное поле',
   });
 
+const excessObjects = {
+  'object.unknown': '{#label} - данное поле лишнее',
+};
+
 module.exports = {
   text,
   link,
@@ -108,4 +72,5 @@ module.exports = {
   password,
   name,
   _id,
+  excessObjects,
 };

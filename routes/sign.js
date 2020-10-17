@@ -3,6 +3,6 @@ const { joiLogin, joiRegistration } = require('../middlewares/celebrate/joiValid
 const { register, login } = require('../controllers/users');
 
 signRouter.post('/signup', joiRegistration, register);
-signRouter.post('/signin ', joiLogin, login);
+signRouter.post('/signin', joiLogin, login);
 
 module.exports = signRouter;

@@ -4,7 +4,7 @@ const User = require('../models/user');
 const NotFoundError = require('../middlewares/errors/404_not-found.js');
 const ConflictError = require('../middlewares/errors/409_conflict.js');
 
-const JWT_SECRET = 'super-secret-key';
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 // 1. Регистрация пользователя
 module.exports.register = (req, res, next) => {
@@ -36,9 +36,8 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-        expiresIn: '7d',
-      });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'super-secret-key',
+        { expiresIn: '7d' });
       //! Попробовать через куки
       res.send({ token });
     })

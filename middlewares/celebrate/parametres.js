@@ -58,7 +58,7 @@ const name = Joi
     'string.base': 'name должно быть строкой',
     'string.min': 'Минимальное количество символов name: 2',
     'string.max': 'Максимальное количество символов name: 30',
-    'any.required': 'keyword - обязательное поле',
+    'any.required': 'name - обязательное поле',
   });
 
 const excessObjects = {

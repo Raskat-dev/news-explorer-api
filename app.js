@@ -6,10 +6,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const errorHandler = require('./middlewares/celebrate/errorHandler'); // обработка ошибок celebrate без вложенности
-const errorRouter = require('./routes/error');
-const signRouter = require('./routes/sign');
-const usersRouter = require('./routes/users');
-const articleRouter = require('./routes/articles');
+const {
+  signRouter, userRouter, articleRouter, errorRouter,
+} = require('./routes/routes');
 const auth = require('./middlewares/auth');
 const error = require('./middlewares/errors/error');
 const rateLimit = require('./middlewares/rateLimit');
@@ -35,7 +34,7 @@ app.use(helmet()); // для простановки security-заголовко�
 app.use(rateLimit); // для ограничения числа запросов
 
 app.use('/', signRouter);
-app.use('/users', auth, usersRouter);
+app.use('/users', auth, userRouter);
 app.use('/articles', auth, articleRouter);
 
 app.use('/*', errorRouter);

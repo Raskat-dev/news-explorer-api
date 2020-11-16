@@ -25,15 +25,7 @@ module.exports.addArticle = (req, res, next) => {
     image,
     owner: ownerId,
   })
-    .then((article) => res.send({
-      keyword: article.keyword,
-      title: article.title,
-      text: article.text,
-      date: article.date,
-      source: article.source,
-      link: article.link,
-      image: article.image,
-    }))
+    .then((article) => res.send(article))
     .catch(next);
 };
 

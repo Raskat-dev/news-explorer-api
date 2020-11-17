@@ -16,6 +16,7 @@ const rateLimit = require('./middlewares/rateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
+app.use(cors({ origin: true }));
 
 const { PORT = 3000 } = process.env;
 
@@ -33,26 +34,6 @@ app.use(requestLogger); // подключаем логгер запросов
 
 app.use(helmet()); // для простановки security-заголовков для API
 app.use(rateLimit); // для ограничения числа запросов
-
-// const whitelist = ['https://ne.rk.students.nomoreparties.co', 'http://ne.rk.students.nomoreparties.co', 'https://www.ne.rk.students.nomoreparties.co', 'http://www.ne.rk.students.nomoreparties.co'];
-// const corsOptions = {
-//   origin(origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-// };
-// app.use(cors(corsOptions));
-
-// app.options('*', cors({
-//   origin: true,
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credential: true,
-//   optionsSuccessStatus: 204,
-// }));
-app.use(cors({ origin: true }));
 
 app.use('/', signRouter);
 app.use('/users', auth, userRouter);

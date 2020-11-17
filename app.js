@@ -17,7 +17,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 app.use(cors({ origin: true }));
-app.options('*', cors());
 
 const { PORT = 3000 } = process.env;
 
@@ -33,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // для приёма ве
 
 app.use(requestLogger); // подключаем логгер запросов
 
-// app.use(helmet()); // для простановки security-заголовков для API
+app.use(helmet()); // для простановки security-заголовков для API
 app.use(rateLimit); // для ограничения числа запросов
 
 app.use('/', signRouter);
